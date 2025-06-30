@@ -665,6 +665,7 @@
                     "stacking": false,
                     "show_pickup_availability": false,
                     "show_cart_icon": true,
+                    "button_height": false,
                     "padding-block-start": 0,
                     "padding-block-end": 10,
                     "padding-inline-start": 0,
@@ -964,12 +965,9 @@
       "name": "t:names.collections_grid",
       "settings": {
         "collection_list": [
-          "hodiee",
-          "tops",
-          "t-shirt",
-          "sweater",
-          "pants",
-          "shirt"
+          "man-t-shirt",
+          "women-salwar",
+          "man-panjabi"
         ],
         "layout_type": "grid",
         "carousel_on_mobile": false,
@@ -1119,7 +1117,7 @@
         "image_Dq3L4M": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image.png",
+            "image": "shopify://shop_images/sn3-image-2.jpg",
             "overlay_image": "shopify://shop_images/shape_svg.svg",
             "link": "",
             "image_fit": "cover",
@@ -1537,6 +1535,7 @@
                             "stacking": false,
                             "show_pickup_availability": false,
                             "show_cart_icon": true,
+                            "button_height": false,
                             "padding-block-start": 0,
                             "padding-block-end": 0,
                             "padding-inline-start": 0,
@@ -1922,6 +1921,7 @@
                             "stacking": false,
                             "show_pickup_availability": false,
                             "show_cart_icon": true,
+                            "button_height": false,
                             "padding-block-start": 0,
                             "padding-block-end": 0,
                             "padding-inline-start": 0,
@@ -3530,6 +3530,7 @@
                     "stacking": false,
                     "show_pickup_availability": false,
                     "show_cart_icon": true,
+                    "button_height": false,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
