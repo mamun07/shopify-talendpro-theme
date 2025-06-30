@@ -601,6 +601,7 @@
                   "name": "t:names.product_title",
                   "settings": {
                     "product": "{{ closest.product }}",
+                    "title_word": "60",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1481,6 +1482,7 @@
                           "type": "product-title",
                           "settings": {
                             "product": "{{ closest.product }}",
+                            "title_word": "25",
                             "width": "100%",
                             "max_width": "normal",
                             "alignment": "left",
@@ -1867,6 +1869,7 @@
                           "type": "product-title",
                           "settings": {
                             "product": "{{ closest.product }}",
+                            "title_word": "25",
                             "width": "100%",
                             "max_width": "normal",
                             "alignment": "left",
@@ -3466,6 +3469,7 @@
                   "name": "t:names.product_title",
                   "settings": {
                     "product": "{{ closest.product }}",
+                    "title_word": "60",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
