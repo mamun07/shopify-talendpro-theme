@@ -2492,8 +2492,8 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
     background-color: var(--color-input-hover-background);
   }
 }
-.cart .quantity-selector{
-  border: none;
+.cart-page .quantity-selector{
+  border: none !important;
 }
 .quantity-selector button {
     background: #FFF9F5 !important;
