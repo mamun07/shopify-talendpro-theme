@@ -38,6 +38,7 @@
     
     {{ content_for_header }}
     {{ 'themefew.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'themefew.js' | asset_url }}"></script>
     
   </head>
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
