@@ -37,7 +37,7 @@
 %}
 
 <span
-  class="buy-buttons-block buy-buttons-block--{{ block.id }} {% if block.settings.show_cart_icon == true %}show_cart_icon{% endif %}"
+  class="buy-buttons-block buy-buttons-block--{{ block.id }} {% if block.settings.show_cart_icon == true %}show_cart_icon{% endif %} {% if block.settings.button_height == true  %}btn_auto_height{%endif%}"
   {{ block.shopify_attributes }}
 >
   {%- if product != blank -%}
@@ -257,6 +257,11 @@
   .quantity-selector,
   .add-to-cart-button {
     height: var(--height-buy-buttons);
+    height: auto;
+  }
+  .btn_auto_height .quantity-selector,
+  .btn_auto_height .add-to-cart-button {
+    height: auto !important;
   }
 
   .product__pickup-availabilities {
@@ -428,6 +433,12 @@
       "type": "checkbox",
       "id": "show_cart_icon",
       "label": "Use Icon",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "button_height",
+      "label": "Button Height Auto",
       "default": false
     },
     {
