@@ -945,7 +945,7 @@
               "static": true,
               "settings": {
                 "collection": "{{ closest.collection }}",
-                "image_ratio": "narrow_landscape",
+                "image_ratio": "landscape",
                 "toggle_overlay": false,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
