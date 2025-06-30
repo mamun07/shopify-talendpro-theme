@@ -74,9 +74,9 @@ div#shopify-section-template--19686071468256__section_8zGCKe .image-block__image
 }
 
 .spacing-style.text-block.text-block--AeXlIVHpKU2tBQjJ0T__text_FPinEq.h1 {
-    @media(min-width: 1280px){
-      max-width: 65%;
-    }
+  @media(min-width: 1280px){
+    max-width: 65%;
+  }
 }
 
 .resource-list__carousel .resource-list__slide {
