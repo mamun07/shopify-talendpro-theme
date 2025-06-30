@@ -58,7 +58,7 @@ a,
     top: 50%;
     transform: translate(0%, -50%);
 }
-div#shopify-section-template--19621581914336__section_zpiCVh,
+div#shopify-section-template--19686071468256__section_zpiCVh,
 div#shopify-section-template--19621581914336__section_8zGCKe,
 div#shopify-section-template--19621581914336__product_list_qU3bEB {
     margin: 0 2.1%;
@@ -98,7 +98,7 @@ product-price div[ref="priceContainer"] {
 #shopify-section-template--19621581914336__customer_reviews_cWiYyQ .single_card a {
     text-decoration: underline;
 }
-#shopify-section-template--19621581914336__section_nXhWeN .overlay_content .product-card__content .group-block {
+#shopify-section-template--19686071468256__section_nXhWeN .overlay_content .product-card__content .group-block {
     position: absolute;
     bottom: 30px;
     width: 60%;
@@ -111,14 +111,14 @@ product-price div[ref="priceContainer"] {
       bottom: 50px;
     }
 }
-#shopify-section-template--19621581914336__section_nXhWeN .overlay_content:hover .product-card__content .group-block {
+#shopify-section-template--19686071468256__section_nXhWeN .overlay_content:hover .product-card__content .group-block {
     transform: translate(-50%, -20px); 
 }
-#shopify-section-template--19621581914336__section_nXhWeN  .collection_overlay_content,
-#shopify-section-template--19621581914336__section_nXhWeN  .overlay_content .product-card__content div[ref="cardGallery"] {
+#shopify-section-template--19686071468256__section_nXhWeN  .collection_overlay_content,
+#shopify-section-template--19686071468256__section_nXhWeN  .overlay_content .product-card__content div[ref="cardGallery"] {
   margin-bottom: 110px;
 }
-#shopify-section-template--19621581914336__section_nXhWeN  .collection_overlay_content .content_areaov {
+#shopify-section-template--19686071468256__section_nXhWeN  .collection_overlay_content .content_areaov {
     position: absolute;
     width: 85%;
     height: 80%;
