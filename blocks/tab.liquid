@@ -1,4 +1,4 @@
-<div class="tab_areas">  
+<div class="tab_areas tab-{{section.id}}">  
   <ul class="uk-tab-bottom" uk-tab>
     {% for i in (1..3) %}
       {% assign tabs_key = "tab_label_" | append: i %}
@@ -46,6 +46,7 @@
 {% schema %}
   {
     "name": "Tabs",
+    "class": "custom-tab",
     "settings": [
       {
         "type": "text",
