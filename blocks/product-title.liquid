@@ -1,11 +1,12 @@
 
+{% assign title_word = block.settings.title_word %}
 
 {% if block.settings.product == blank and request.design_mode %}
   {% assign text = 'placeholders.product_title' | t %}
-  {% assign product_title = '<p>' | append: text | truncate: 60 | append: '</p>' %}
+  {% assign product_title = '<p>' | append: text | truncate: title_word | append: '</p>' %}
   {% render 'text', fallback_text: product_title, block: block %}
 {% elsif block.settings.product != blank %}
-  {% assign product_title = '<p>' | append: block.settings.product.title | truncate: 60 | append: '</p>' %}
+  {% assign product_title = '<p>' | append: block.settings.product.title | truncate: title_word | append: '</p>' %}
   {% render 'text', fallback_text: product_title, block: block %}
 {% endif %}
 
@@ -18,6 +19,12 @@
       "type": "product",
       "id": "product",
       "label": "t:settings.product"
+    },
+    {
+      "type": "text",
+      "id": "title_word",
+      "default": "60",
+      "label": "Show Characters"
     },
     {
       "type": "header",
