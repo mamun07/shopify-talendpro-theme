@@ -283,6 +283,7 @@
                   "name": "t:names.product_title",
                   "settings": {
                     "product": "{{ closest.product }}",
+                    "title_word": "60",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -361,7 +362,7 @@
       },
       "name": "t:names.products_grid",
       "settings": {
-        "collection": "all",
+        "collection": "best-selling",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 4,

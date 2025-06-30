@@ -255,6 +255,7 @@
                   "name": "t:names.product_title",
                   "settings": {
                     "product": "{{ closest.product }}",
+                    "title_word": "60",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -318,6 +319,7 @@
                     "stacking": false,
                     "show_pickup_availability": true,
                     "show_cart_icon": true,
+                    "button_height": false,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
