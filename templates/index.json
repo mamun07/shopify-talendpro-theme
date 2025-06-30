@@ -968,7 +968,10 @@
         "collection_list": [
           "man-t-shirt",
           "women-salwar",
-          "man-panjabi"
+          "man-panjabi",
+          "kitchen-item",
+          "electric",
+          "women-saree"
         ],
         "layout_type": "grid",
         "carousel_on_mobile": false,
