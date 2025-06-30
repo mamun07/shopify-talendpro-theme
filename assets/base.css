@@ -2482,15 +2482,18 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
   align-items: center;
   color: var(--color-input-text);
   background-color: var(--color-input-background);
-  /* border: var(--style-border-width-inputs) solid var(--color-input-border); */
+  border: var(--style-border-width-inputs) solid var(--color-input-border);
   border-radius: var(--style-border-radius-inputs);
   flex: 1 1 var(--quantity-selector-width);
   align-self: stretch;
   transition: background-color var(--animation-speed) var(--animation-easing);
-
+  
   &:hover {
     background-color: var(--color-input-hover-background);
   }
+}
+.cart .quantity-selector{
+  border: none;
 }
 .quantity-selector button {
     background: #FFF9F5 !important;
