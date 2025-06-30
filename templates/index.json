@@ -1426,7 +1426,7 @@
                       "type": "_product-card-gallery",
                       "settings": {
                         "product": "{{ closest.product }}",
-                        "image_ratio": "adapt",
+                        "image_ratio": "landscape",
                         "border": "none",
                         "border_width": 1,
                         "border_opacity": 100,
@@ -1637,7 +1637,7 @@
                     "image": "shopify://shop_images/h.jpg",
                     "link": "",
                     "image_fit": "cover",
-                    "image_ratio": "adapt",
+                    "image_ratio": "landscape",
                     "width": "fill",
                     "custom_width": 100,
                     "width_mobile": "fill",
@@ -1812,7 +1812,7 @@
                       "type": "_product-card-gallery",
                       "settings": {
                         "product": "{{ closest.product }}",
-                        "image_ratio": "adapt",
+                        "image_ratio": "landscape",
                         "border": "none",
                         "border_width": 1,
                         "border_opacity": 100,
