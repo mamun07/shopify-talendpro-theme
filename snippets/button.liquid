@@ -1,0 +1,86 @@
+{%- doc -%}
+  Intended for use in a block similar to the button block.
+
+  @param {string} link - link to render
+  @param {object} [block] - The block
+
+  @example
+  {% render 'button', link: '/collections/all' %}
+{%- enddoc -%}
+<div class="button_group">
+  {% if block.settings.label != blank %}
+  <a
+    {% if link == blank %}
+      role="link"
+      aria-disabled="true"
+    {% else %}
+      href="{{ link }}"
+    {% endif %}
+    class="
+      size-style
+      {{ block.settings.style_class }}
+      {{ block.settings.style_class }}--{{ block.id }}
+    "
+    style="{% render 'size-style', settings: block.settings %}"
+    {%- if block.settings.open_in_new_tab -%}
+      target="_blank"
+      rel="noopener noreferrer"
+    {%- endif -%}
+    {{ block.shopify_attributes }}
+  >
+    {{ block.settings.label }}
+  </a>
+  {% endif %}
+  {% if block.settings.label_2 != blank %}
+    <a
+      {% if block.settings.link_2 == blank %}
+        role="link"
+        aria-disabled="true"
+      {% else %}
+        href="{{ block.settings.link_2 }}"
+      {% endif %}
+      class="
+        icon-text-button
+        size-style
+        {{ block.settings.style_class_2 }}
+        {{ block.settings.style_class_2 }}--{{ block.id }}
+      "
+      style="{% render 'size-style', settings: block.settings %}"
+      {%- if block.settings.open_in_new_tab -%}
+        target="_blank"
+        rel="noopener noreferrer"
+      {%- endif -%}
+      {{ block.shopify_attributes }}
+    >
+      {% render 'icon-check-badge' %} {{ block.settings.label_2 }}
+    </a>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .link {
+    text-decoration: none;
+    text-decoration-color: currentcolor;
+
+    &:hover {
+      color: var(--color-primary-hover);
+      text-decoration-color: transparent;
+    }
+  }
+  .button_group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .icon-text-button {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      text-decoration: underline !important;
+      font-weight: 600;
+      font-size: 16px;
+  }
+{% endstylesheet %}

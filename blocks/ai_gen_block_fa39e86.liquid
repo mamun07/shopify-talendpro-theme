@@ -1,0 +1,290 @@
+{% doc %}
+  @prompt
+    create a product infinity load spiner and when show in screen spiner please load more product in this product grid
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-infinity-loader-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 30px 0;
+    margin-top: 20px;
+  }
+
+  .ai-infinity-spinner-{{ ai_gen_id }} {
+    width: {{ block.settings.spinner_size }}px;
+    height: {{ block.settings.spinner_size }}px;
+    position: relative;
+  }
+
+  .ai-infinity-spinner-{{ ai_gen_id }}::before,
+  .ai-infinity-spinner-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: {{ block.settings.spinner_thickness }}px solid transparent;
+    border-top-color: {{ block.settings.spinner_color }};
+  }
+
+  .ai-infinity-spinner-{{ ai_gen_id }}::before {
+    animation: ai-infinity-spin-{{ ai_gen_id }} 1.5s linear infinite;
+  }
+
+  .ai-infinity-spinner-{{ ai_gen_id }}::after {
+    border-top-color: {{ block.settings.secondary_spinner_color }};
+    animation: ai-infinity-spin-{{ ai_gen_id }} 1.5s linear infinite reverse;
+    opacity: 0.6;
+  }
+
+  @keyframes ai-infinity-spin-{{ ai_gen_id }} {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .ai-infinity-loader-{{ ai_gen_id }}.ai-hidden {
+    display: none;
+  }
+
+  .ai-infinity-message-{{ ai_gen_id }} {
+    margin-top: 10px;
+    text-align: center;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+  }
+{% endstyle %}
+
+<infinity-loader-{{ ai_gen_id }} 
+  class="ai-infinity-loader-{{ ai_gen_id }}" 
+  data-collection="{{ block.settings.collection.id }}"
+  data-products-per-page="{{ block.settings.products_per_page }}"
+  data-max-pages="{{ block.settings.max_pages }}"
+  data-grid-selector="{{ block.settings.product_grid_selector }}"
+  data-loading-text="{{ block.settings.loading_text }}"
+  data-end-text="{{ block.settings.end_text }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-infinity-spinner-{{ ai_gen_id }}"></div>
+  <div class="ai-infinity-message-{{ ai_gen_id }}">{{ block.settings.loading_text }}</div>
+</infinity-loader-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class InfinityLoader{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentPage = 1;
+        this.loading = false;
+        this.allLoaded = false;
+        this.collectionId = this.dataset.collection;
+        this.productsPerPage = parseInt(this.dataset.productsPerPage, 10);
+        this.maxPages = parseInt(this.dataset.maxPages, 10);
+        this.gridSelector = this.dataset.gridSelector;
+        this.loadingText = this.dataset.loadingText;
+        this.endText = this.dataset.endText;
+        this.messageElement = this.querySelector('.ai-infinity-message-{{ ai_gen_id }}');
+        this.spinner = this.querySelector('.ai-infinity-spinner-{{ ai_gen_id }}');
+      }
+
+      connectedCallback() {
+        this.setupIntersectionObserver();
+      }
+
+      setupIntersectionObserver() {
+        const options = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !this.loading && !this.allLoaded) {
+              this.loadMoreProducts();
+            }
+          });
+        }, options);
+
+        observer.observe(this);
+      }
+
+      async loadMoreProducts() {
+        if (this.loading || this.allLoaded) return;
+        
+        this.loading = true;
+        this.currentPage++;
+        
+        if (this.currentPage > this.maxPages) {
+          this.allLoaded = true;
+          this.messageElement.textContent = this.endText;
+          this.spinner.style.display = 'none';
+          this.loading = false;
+          return;
+        }
+
+        try {
+          const url = `/collections/${this.collectionId}?page=${this.currentPage}&section_id=product-grid`;
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          
+          const productGrid = document.querySelector(this.gridSelector);
+          if (!productGrid) {
+            throw new Error(`Product grid element not found with selector: ${this.gridSelector}`);
+          }
+          
+          const newProducts = doc.querySelectorAll(`${this.gridSelector} > *`);
+          
+          if (newProducts.length === 0) {
+            this.allLoaded = true;
+            this.messageElement.textContent = this.endText;
+            this.spinner.style.display = 'none';
+          } else {
+            newProducts.forEach(product => {
+              productGrid.appendChild(product);
+            });
+          }
+        } catch (error) {
+          console.error('Error loading more products:', error);
+          this.messageElement.textContent = 'Error loading products. Please try again.';
+        } finally {
+          this.loading = false;
+        }
+      }
+    }
+
+    customElements.define('infinity-loader-{{ ai_gen_id }}', InfinityLoader{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Infinity Loader",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Loading"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection to load products from"
+    },
+    {
+      "type": "text",
+      "id": "product_grid_selector",
+      "label": "Product grid CSS selector",
+      "default": ".product-grid",
+      "info": "CSS selector for the product grid container (e.g., .product-grid, #product-grid)"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "default": 12,
+      "label": "Products per page"
+    },
+    {
+      "type": "range",
+      "id": "max_pages",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "label": "Maximum pages to load"
+    },
+    {
+      "type": "header",
+      "content": "Spinner Appearance"
+    },
+    {
+      "type": "range",
+      "id": "spinner_size",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "default": 40,
+      "unit": "px",
+      "label": "Spinner size"
+    },
+    {
+      "type": "range",
+      "id": "spinner_thickness",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 3,
+      "unit": "px",
+      "label": "Spinner thickness"
+    },
+    {
+      "type": "color",
+      "id": "spinner_color",
+      "label": "Spinner color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_spinner_color",
+      "label": "Secondary spinner color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "loading_text",
+      "label": "Loading text",
+      "default": "Loading more products..."
+    },
+    {
+      "type": "text",
+      "id": "end_text",
+      "label": "End of collection text",
+      "default": "No more products to load"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px",
+      "label": "Text size"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Infinity Loader"
+    }
+  ]
+}
+{% endschema %}

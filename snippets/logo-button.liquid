@@ -1,0 +1,96 @@
+{%- doc -%}
+  Intended for use in a block similar to the button block.
+
+  @param {string} link - link to render
+  @param {object} [block] - The block
+
+  @example
+  {% render 'button', link: '/collections/all' %}
+{%- enddoc -%}
+
+{% if block.settings.label != blank %}
+  <a
+    {% if link == blank %}
+      role="link"
+      aria-disabled="true"
+    {% else %}
+      href="{{ link }}"
+    {% endif %}
+    class="
+      size-style
+      {{ block.settings.style_class }}
+      {{ block.settings.style_class }}--{{ block.id }}
+    "
+    style="{% render 'size-style', settings: block.settings %}"
+    {%- if block.settings.open_in_new_tab -%}
+      target="_blank"
+      rel="noopener noreferrer"
+    {%- endif -%}
+    {{ block.shopify_attributes }}
+  >
+    <div class="btn_logo_group">
+      {% if block.settings.logo != blank %}
+        <div class="logo">
+          {{ block.settings.logo | image_url: width: 50 | image_tag  }}
+        </div>
+      {% endif %}
+      {% if block.settings.label != blank %}
+        <div class="text">
+          {{ block.settings.label }}
+        </div>
+      {% endif %}
+    </div>
+  </a>
+{% endif %}
+
+{% stylesheet %}
+  .link {
+    text-decoration: none;
+    text-decoration-color: currentcolor;
+
+    &:hover {
+      color: var(--color-primary-hover);
+      text-decoration-color: transparent;
+    }
+  }
+  a.app {
+    background: #ffffff17;
+    padding: 15px;
+    max-width: max-content;
+    border-radius: 12px;
+  }
+  a.app * {
+      margin: 0;
+      color: var(--color, var(--color-foreground));
+  }
+  a.app h3 {
+      font-size: 12px;
+      line-height: 110%;
+      opacity: 0.5;
+      margin-bottom: 4px;
+  }
+  a.app h2 {
+    font-size: 16px;
+    line-height: 110%;
+  }
+  .btn_logo_group{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+  .btn_logo_group .logo{
+    width: 26px;
+    height: 26px;
+  }
+  .btn_logo_group .logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  .btn_logo_group .text{}
+
+
+  
+{% endstylesheet %}

@@ -1,0 +1,53 @@
+<div>
+  <div class="single_card {{ block.settings.image_position }} {% if block.settings.revert_image == true %}revert_image{% endif %}">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .single_card.row.revert_image {
+    display: grid;
+    grid-template-columns: 45% 50%;
+    gap: 5%;
+    background: #fff;
+  }
+{% endstylesheet %}
+
+{% schema %}
+  {
+    "name": "Carousel",
+    "tag": null,
+    "blocks": [{"type": "@theme"},{"type": "@app"}],
+    "settings": [
+      {
+        "type": "select",
+        "id": "image_position",
+        "label": "Image Possiton",
+        "options": [
+          {
+            "value": "column",
+            "label": "Column"
+          },
+          {
+            "value": "row",
+            "label": "Row"
+          }
+        ],
+        "default": "column"
+      },
+      {
+        "type": "checkbox",
+        "id": "revert_image",
+        "label": "Revert Media",
+        "visible_if": "{{ block.settings.image_position == 'row'}}",
+        "default": true
+      }
+    ],
+    "presets": [
+      {
+        "name": "Carousel",
+        "category": "t:categories.basic"
+      }
+    ]
+  }
+{% endschema %}

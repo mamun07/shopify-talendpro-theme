@@ -1,0 +1,129 @@
+{% comment %}
+  Auto Infinite Product Grid Section - No Button
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Infinite Product Grid",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "number",
+      "id": "products_per_page",
+      "label": "Products per load",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Infinite Scroll Product Grid"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign selected_collection = collections[section.settings.collection] %}
+{% paginate selected_collection.products by section.settings.products_per_page %}
+
+<div id="infinite-product-grid">
+  <div id="product-grid" class="grid grid--2-col grid--4-col-desktop">
+    {% for product in selected_collection.products %}
+      <div class="product-card">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
+          <h3>{{ product.title }}</h3>
+          <p>{{ product.price | money }}</p>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if paginate.next %}
+    <div id="infinite-scroll-trigger" data-url="{{ paginate.next.url }}" style="height: 50px;"></div>
+  {% endif %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const trigger = document.getElementById("infinite-scroll-trigger");
+  if (!trigger) return;
+
+  const observer = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const url = trigger.dataset.url;
+        if (!url) return;
+
+        // Prevent double trigger
+        observer.unobserve(trigger);
+
+        fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const newItems = doc.querySelector("#product-grid").innerHTML;
+            const newTrigger = doc.querySelector("#infinite-scroll-trigger");
+
+            document.querySelector("#product-grid").insertAdjacentHTML("beforeend", newItems);
+
+            if (newTrigger) {
+              trigger.dataset.url = newTrigger.dataset.url;
+              observer.observe(trigger); // re-observe for next page
+            } else {
+              trigger.remove(); // no more pages
+            }
+          })
+          .catch(err => console.error("Scroll loading error", err));
+      }
+    });
+  }, {
+    rootMargin: '200px' // loads earlier
+  });
+
+  observer.observe(trigger);
+});
+</script>
+
+
+<style>
+  .product-card {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background: #333;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 products per row */
+    gap: 20px;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .grid {
+      grid-template-columns: 1fr; /* 1 per row on mobile */
+    }
+  }
+
+</style>
+
+{% endpaginate %}

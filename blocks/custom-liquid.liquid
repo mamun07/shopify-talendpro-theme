@@ -1,0 +1,30 @@
+<div class="custom-{{ block.id }} {{ block.settings.custom_liquid_class }}">
+  {{ block.settings.custom_liquid }}
+</div>
+
+{% schema %}
+{
+  "name": "t:names.custom_liquid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "t:settings.custom_liquid",
+      "info": "t:info.custom_liquid"
+    },
+    {
+      "type": "text",
+      "id": "custom_liquid_class",
+      "label": "Class Name",
+      "info": "use custom class name"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.custom_liquid",
+      "category": "t:categories.custom"
+    }
+  ]
+}
+{% endschema %}

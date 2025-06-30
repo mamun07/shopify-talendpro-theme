@@ -1,0 +1,96 @@
+{% capture arrow %}
+  <span class="right-arrow">
+     <svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+      <path d="M1 11.5L6 6.5L1 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg> 
+  </span> 
+{% endcapture %}
+
+
+<div class="breadcrumb-{{ block.id }} uk-width-1-1">
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <a href="{{ routes.root_url }}">Home</a>
+  
+    {% if template contains 'collection' and collection %}
+      {{ arrow }}
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+    
+    {% elsif template contains 'product' and product %}
+      {% assign product_col = product.collections[0] %}
+      {% if product_col %}
+      {{ arrow }}
+        <a href="{{ product_col.url }}">{{ product_col.title }}</a>
+      {% endif %}
+      {{ arrow }}
+      <span>{{ product.title }}</span>
+  
+    {% elsif template contains 'blog' and blog %}
+      {{ arrow }}
+      <a href="{{ blog.url }}">{{ blog.title }}</a>
+  
+    {% elsif template contains 'article' and article %}
+      {{ arrow }}
+      <a href="{{ blog.url }}">{{ blog.title }}</a>
+      {{ arrow }}
+      <span>{{ article.title }}</span>
+  
+    {% elsif template contains 'page' and page %}
+      {{ arrow }}
+      <span>{{ page.title }}</span>
+  
+    {% elsif template contains 'search' %}
+      {{ arrow }}
+      <span>Search</span>
+  
+    {% elsif template contains 'cart' %}
+      {{ arrow }}
+      <span>Cart</span>
+  
+    {% elsif template contains 'customers' %}
+      {{ arrow }}
+      <span>Account</span>
+    {% endif %}
+  </nav>
+
+</div>
+
+{% stylesheet %}
+  .breadcrumb {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 110%;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+  }
+  .breadcrumb * {
+    color: var(--color-primary);
+    text-decoration: none;
+    opacity: 0.5;
+  }
+  .breadcrumb a:hover,
+  .breadcrumb *:last-child{
+    opacity: 1;
+  }
+  .breadcrumb .right-arrow {
+    margin: 0 10px;
+  }
+
+{% endstylesheet %}
+
+{% schema %}
+  {
+    "name": "Breadcrumb",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Breadcrumb",
+        "category": "Breadcrumb"
+      }
+    ]
+  }
+{% endschema %}
