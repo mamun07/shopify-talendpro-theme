@@ -18,7 +18,7 @@
       {% if label %}
         <li>
           {% if forloop.index == 3 and text == blank %}
-            <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}" data-auto-install="false"></div>
+            {% content_for 'blocks' %}    
           {% else %}
             {{ text }}
           {% endif %}
@@ -96,6 +96,7 @@
         "default": "t:html_defaults.share_information_about_your"
       }
     ],
+    "blocks": [{"type": "@theme"},{"type": "@app"}],
     "presets": [
       {
         "name": "Tabs"
