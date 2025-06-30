@@ -227,7 +227,9 @@ slideshow-controls {
     background: #F3F4F1;
 }
 
-
+.product-information .quantity-selector :is(.quantity-minus,.quantity-plus) {
+    height: 100%;
+}
 
 /*  */
 .product-information__grid.product-information--media-left.product-information__grid--half {
