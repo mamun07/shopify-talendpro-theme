@@ -7,10 +7,12 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
+
+ 
 {
   "sections": {
     "main": {
-      "type": "main-customer-order",
+      "type": "customer-order",
       "settings": {}
     }
   },
