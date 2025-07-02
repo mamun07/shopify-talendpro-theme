@@ -931,7 +931,7 @@
                 "color": "var(--color-foreground)",
                 "background": true,
                 "background_color": "#00000085",
-                "corner_radius": 50,
+                "corner_radius": 24,
                 "padding-block-start": 10,
                 "padding-block-end": 10,
                 "padding-inline-start": 10,
@@ -945,7 +945,7 @@
               "static": true,
               "settings": {
                 "collection": "{{ closest.collection }}",
-                "image_ratio": "landscape",
+                "image_ratio": "narrow_landscape",
                 "toggle_overlay": false,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",

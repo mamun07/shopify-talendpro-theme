@@ -50,7 +50,7 @@
 
   {%- if items_array.size > 0 -%}
     <div
-      class="header__column header__column--{{ column }}"
+      class="header__column header__column--{{ column }} {% if customer %}customer_login{% endif %}"
       data-testid="header-{{ row }}-{{ column }}"
     >
       {% for key in items_array %}
@@ -62,29 +62,33 @@
               {{ logo }}
             {% when 'menu' %}
               {{ menu }}
-            {% when 'localization' %}
-              {{ localization }}
+            {% when 'localization' %}             
+              {% if customer %}
+                {{ localization }}
+              {% endif %}
             {% when 'search' %}
+              {% if customer %}
                 {{ search }}
+              {% endif %}
             {% when 'mobile_search' %}
+              {% if customer %}
                 {{ mobile_search }}
-            {% when 'actions' %}       
+              {% endif %}
+            {% when 'actions' %}               
+              {% if customer %}
                 {{ actions }}
-                {% comment %}              
-                  {% if customer %}
-                  {% else %}
-                    <header-actions>
-                      <div class="login_auth_check uk-visible@s">
-                        <a href="{{ routes.account_login_url }}">Sign In</a>
-                        <a href="{{ routes.account_register_url }}">Sign Up</a>
-                      </div>
-                      <div class="login_auth_check  uk-hidden@s">
-                        <a href="{{ routes.account_login_url }}">Sign In</a>
-                        <a href="{{ routes.account_register_url }}">Sign Up</a>
-                      </div>
-                    </header-actions>
-                  {% endif %}
-                {% endcomment %}
+              {% else %}
+                <header-actions>
+                  <div class="login_auth_check uk-visible@s">
+                    <a href="{{ routes.account_login_url }}">Sign In</a>
+                    <a href="{{ routes.account_register_url }}">Sign Up</a>
+                  </div>
+                  <div class="login_auth_check  uk-hidden@s">
+                    <a href="{{ routes.account_login_url }}">Sign In</a>
+                    <a href="{{ routes.account_register_url }}">Sign Up</a>
+                  </div>
+                </header-actions>
+              {% endif %}
             
           {% endcase %}
         {% endunless %}
@@ -92,4 +96,5 @@
     </div>
   {%- endif -%}
 {%- endfor -%}
+
 

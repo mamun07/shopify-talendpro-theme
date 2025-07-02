@@ -134,7 +134,7 @@
                       href="{{ item.url }}"
                       class="cart-items__title"
                     >
-                      {{- item.product.title -}}
+                      {{- item.product.title | truncate: 15 -}}
                     </a>
                   </p>
                   {% if item.product.vendor and block.settings.vendor %}
